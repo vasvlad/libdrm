@@ -1,0 +1,8 @@
+<package project="Mer:Trunk:Base" name="libdrm">
+  <title>Direct Rendering Manager runtime library</title>
+  <description>Description: %{summary}
+
+
+</description>
+  <url>http://dri.sourceforge.net</url>
+</package>

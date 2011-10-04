@@ -1,0 +1,91 @@
+* Tue May 10 2011 Arjan van de Ven <arjan@linux.intel.com> - 2.4.25
+- libdrm 2.4.25
+
+* Thu Sep 30 2010 Li Peng <peng.li@intel.com> - 2.4.22
+- libdrm 2.4.22
+
+* Fri Sep 10 2010 Li Peng <peng.li@intel.com> - 2.4.21~git7ec9a1effa
+- update to latest libdrm, required by xf86-video-intel
+
+* Wed Jun 23 2010 Li Peng <peng.li@intel.com> - 2.4.21
+- libdrm 2.4.21
+
+* Wed Apr 07 2010 Li Peng <peng.li@intel.com> - 2.4.20
+- libdrm 2.4.20
+
+* Thu Mar 18 2010 Li Peng <peng.li@intel.com> - 2.4.19
+- Add patch that fix pitch alignment for untiled buffer
+
+* Fri Mar 05 2010 Li Peng <peng.li@intel.com> - 2.4.19
+- libdrm 2.4.19
+
+* Sat Feb 27 2010 Anas Nashif <anas.nashif@intel.com> - 2.4.18
+- Use spectacle
+
+* Tue Feb 16 2010 Arjan van de Ven <arjan@linux.intel.com> 2.4.18
+- fix a critical crasher bug exposed by the cairo testsuite
+  (by going to the 2.4.18 release)
+
+* Wed Dec 23 2009 Li Peng <peng.li@intel.com> 2.4.17
+- libdrm 2.4.17
+
+* Fri Dec 11 2009 Li Peng <peng.li@intel.com> 2.4.16
+- remove 'unset LD_AS_NEEDED'
+- libdrm 2.4.16
+
+* Sat Oct 10 2009 Li Peng <peng.li@intel.com> 2.4.14
+- libdrm 2.4.14
+
+* Mon Aug 03 2009 Li Peng <peng.li@intel.com> 2.4.12
+- dri2-swapbuffers support
+
+* Thu Jul 16 2009 Li Peng <peng.li@intel.com> 2.4.12
+- libdrm 2.4.12
+
+* Tue Jun 23 2009 Li Peng <peng.li@intel.com> 2.4.11
+- update to 2009Q2-rc2 release
+
+* Mon Apr 27 2009 Li Peng <peng.li@intel.com> 2.4.9
+- update to 2.4.9
+
+* Tue Apr 14 2009 Li Peng <peng.li@intel.com> 2.4.7
+- Update to 2.4.7
+
+* Tue Apr 07 2009 Li Peng <peng.li@intel.com> 2.4.6
+- Update to 2.4.6
+
+* Tue Feb 24 2009 Anas Nashif <anas.nashif@intel.com> 2.4.5
+- Update to 2.4.5
+
+* Tue Jan 27 2009 Li Peng <peng.li@intel.com> 2.4.4
+- update DRI2 fix patch to sync with upstream
+
+* Mon Jan 26 2009 Anas Nashif <anas.nashif@intel.com> 2.4.4
+- Fix performance issues with DRI2
+
+* Fri Jan 16 2009 Peng Li <peng.li@intel.com> 2.4.4
+- libdrm 2.4.4
+
+* Tue Jan 13 2009 Peng Li <peng.li@intel.com> 2.4.3
+- update to latest 2008Q4 pre-release 'libdrm-20090112.tar.gz' at
+  http://intellinuxgraphics.org/download.html
+
+* Fri Jan 09 2009 Peng Li <peng.li@intel.com> 2.4.3
+- libdrm 2.4.3
+
+* Thu Jan 08 2009 Anas Nashif <anas.nashif@intel.com> 2.4.2
+- Make it build with new libtool
+
+* Sat Dec 20 2008 Peng Li <peng.li@intel.com> 2.4.2
+- update to 2008Q4 pre-release at 
+  http://intellinuxgraphics.org/download.html
+
+* Tue Dec 16 2008 Anas Nashif <anas.nashif@intel.com> 2.4.1
+- Update spec file using latest spec-builder
+
+* Tue Dec 16 2008 Anas Nashif <anas.nashif@intel.com> 2.4.1
+- Update spec file using latest spec-builder
+
+* Fri Dec 12 2008 Peng Li <peng.li@intel.com> 2.4.1
+- Use spec builder to reinit spec file
+
