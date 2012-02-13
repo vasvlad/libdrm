@@ -1,16 +1,17 @@
 Name: libdrm
 Summary: Direct Rendering Manager runtime library
-Version: 2.4.25
+Version: 2.4.31
 Release: 1
 Group: System/Libraries
 License: MIT
 URL: http://dri.sourceforge.net
 Sources:
     - http://dri.freedesktop.org/libdrm/%{name}-%{version}.tar.bz2
-Description:
-    - libdrm
+Description: |
+    %{summary}
 
 PkgConfigBR:
+    - pciaccess >= 0.10
     - pthread-stubs
 UseAsNeeded: False
 Configure: reconfigure
@@ -18,6 +19,8 @@ SubPackages:
     - Name: devel
       Summary: Direct Rendering Manager development package
       Group: Development/Libraries
+      Description: |
+          %{summary}.
       Requires:
           - kernel-headers
 
