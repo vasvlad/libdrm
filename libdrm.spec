@@ -59,6 +59,19 @@ Requires(postun): /sbin/ldconfig
 %{summary}.
 
 
+%ifarch %{ix86} x86_64
+%package intel
+Summary:    Direct Rendering Manager intel api
+Group:      Development/Libraries
+Requires:   %{name} = %{version}-%{release}
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+
+%description intel
+%{summary}.
+%endif
+
+
 %package devel
 Summary:    Direct Rendering Manager development package
 Group:      Development/Libraries
@@ -66,6 +79,9 @@ Requires:   %{name} = %{version}-%{release}
 Requires:   %{name}-omap = %{version}-%{release}
 Requires:   %{name}-radeon = %{version}-%{release}
 Requires:   %{name}-nouveau = %{version}-%{release}
+%ifarch %{ix86} x86_64
+Requires:   %{name}-intel = %{version}-%{release}
+%endif
 Requires:   kernel-headers
 
 %description devel
@@ -124,10 +140,6 @@ rm -rf %{buildroot}
 %doc README
 %{_libdir}/libdrm.so.*
 %{_libdir}/libkms.so.*
-%ifarch %{ix86}
-# Also this should go to its own package?
-%{_libdir}/libdrm_intel.so.*
-%endif
 # << files
 
 %files omap
@@ -147,6 +159,14 @@ rm -rf %{buildroot}
 # >> files nouveau
 %{_libdir}/libdrm_nouveau.so.*
 # << files nouveau
+
+%ifarch %{ix86} x86_64
+%files intel
+%defattr(-,root,root,-)
+# >> files intel
+%{_libdir}/libdrm_intel.so.*
+# << files intel
+%endif
 
 %files devel
 %defattr(-,root,root,-)

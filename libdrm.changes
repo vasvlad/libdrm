@@ -1,3 +1,6 @@
+* Tue Jan 22 2013 Oleg Girko <ol+mer@infoserver.ru> 2.4.39
+- Add intel subpackage when building for for x86 architectures.
+
 * Mon Sep 03 2012 Marko Saukko <marko.saukko@jollamobile.com> - 2.4.39
 - Update to 2.4.39
 - Add omap,radeon and nouveau subpackages.
