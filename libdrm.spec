@@ -134,6 +134,13 @@ rm -rf %{buildroot}
 
 %postun nouveau -p /sbin/ldconfig
 
+%ifarch %{ix86} x86_64
+%post intel -p /sbin/ldconfig
+
+%postun intel -p /sbin/ldconfig
+
+%endif
+
 %files
 %defattr(-,root,root,-)
 # >> files

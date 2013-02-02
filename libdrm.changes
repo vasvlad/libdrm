@@ -1,3 +1,6 @@
+* Mon Jan 28 2013 Oleg Girko <ol+mer@infoserver.ru> 2.4.39
+- Add %post and %postun scripts for intel subpackage.
+
 * Tue Jan 22 2013 Oleg Girko <ol+mer@infoserver.ru> 2.4.39
 - Add intel subpackage when building for for x86 architectures.
 
