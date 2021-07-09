@@ -48,15 +48,13 @@ end}
 
 Name:       libdrm
 Summary:    Direct Rendering Manager runtime library
-Version:    2.4.101
+Version:    2.4.107
 Release:    1
-Group:      System/Libraries
 License:    MIT
-URL:        http://dri.sourceforge.net
-Source0:    http://dri.freedesktop.org/libdrm/%{name}-%{version}.tar.bz2
+URL:        https://dri.freedesktop.org/wiki/
+Source0:    %{name}-%{version}.tar.bz2
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-BuildRequires:  pkgconfig(pciaccess) >= 0.10
 BuildRequires:  meson >= 0.43
 BuildRequires:  gcc
 BuildRequires:  libatomic_ops-devel
@@ -64,7 +62,6 @@ BuildRequires:  kernel-headers
 %if %{with intel}
 BuildRequires:  pkgconfig(pciaccess) >= 0.10
 %endif
-#BuildRequires:  pkgconfig(cunit) >= 2.1
 %if %{with cairo_tests}
 BuildRequires:  pkgconfig(cairo)
 %endif
@@ -79,7 +76,6 @@ BuildRequires:  valgrind-devel
 %if %{with udev}
 BuildRequires:  pkgconfig(udev)
 %endif
-BuildRequires:  chrpath
 
 
 %description
@@ -88,7 +84,6 @@ BuildRequires:  chrpath
 %if %{with omap}
 %package omap
 Summary:    Direct Rendering Manager omap api
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -99,7 +94,6 @@ Requires(postun): /sbin/ldconfig
 
 %package radeon
 Summary:    Direct Rendering Manager radeon api
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -110,7 +104,6 @@ Requires(postun): /sbin/ldconfig
 
 %package nouveau
 Summary:    Direct Rendering Manager nouveau api
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -120,7 +113,6 @@ Requires(postun): /sbin/ldconfig
 
 %package amdgpu
 Summary:    Direct Rendering Manager amdgpu api
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -132,7 +124,6 @@ Requires(postun): /sbin/ldconfig
 %ifarch %{ix86} x86_64
 %package intel
 Summary:    Direct Rendering Manager intel api
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -144,7 +135,6 @@ Requires(postun): /sbin/ldconfig
 
 %package devel
 Summary:    Direct Rendering Manager development package
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 %if %{with omap}
 Requires:   %{name}-omap = %{version}-%{release}
@@ -170,7 +160,7 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 
 
 %prep
-%setup -q -n %{name}-%{version}/upstream
+%autosetup -n %{name}-%{version}/upstream
 
 %build
 %meson \
