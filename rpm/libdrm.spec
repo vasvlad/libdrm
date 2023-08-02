@@ -1,12 +1,19 @@
 %define bcond_meson() %{lua: do
   local option = rpm.expand("%{1}")
   local with = rpm.expand("%{?with_" .. option .. "}")
+  local value = (with ~= '') and "enabled" or "disabled"
+  option = option:gsub('_', '-')
+  print(string.format("-D%s=%s", option, value))
+end}
+
+%define bcond_meson_bool() %{lua: do
+  local option = rpm.expand("%{1}")
+  local with = rpm.expand("%{?with_" .. option .. "}")
   local value = (with ~= '') and "true" or "false"
   option = option:gsub('_', '-')
   print(string.format("-D%s=%s", option, value))
 end}
 
-%bcond_without libkms
 %ifarch %{ix86} x86_64
 %bcond_without intel
 %else
@@ -48,7 +55,7 @@ end}
 
 Name:       libdrm
 Summary:    Direct Rendering Manager runtime library
-Version:    2.4.107
+Version:    2.4.115
 Release:    1
 License:    MIT
 URL:        https://dri.freedesktop.org/wiki/
@@ -164,24 +171,23 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 
 %build
 %meson \
-  %{bcond_meson libkms}                \
-  %{bcond_meson intel}                 \
-  %{bcond_meson radeon}                \
-  %{bcond_meson amdgpu}                \
-  %{bcond_meson nouveau}               \
-  %{bcond_meson vmwgfx}                \
-  %{bcond_meson omap}                  \
-  %{bcond_meson exynos}                \
-  %{bcond_meson freedreno}             \
-  %{bcond_meson tegra}                 \
-  %{bcond_meson vc4}                   \
-  %{bcond_meson etnaviv}               \
-  %{bcond_meson cairo_tests}           \
-  %{bcond_meson man_pages}             \
-  %{bcond_meson valgrind}              \
-  %{bcond_meson freedreno_kgsl}        \
-  %{bcond_meson install_test_programs} \
-  %{bcond_meson udev}                  \
+  %{bcond_meson intel} \
+  %{bcond_meson radeon} \
+  %{bcond_meson amdgpu} \
+  %{bcond_meson nouveau} \
+  %{bcond_meson vmwgfx} \
+  %{bcond_meson omap} \
+  %{bcond_meson exynos} \
+  %{bcond_meson freedreno}\
+  %{bcond_meson tegra} \
+  %{bcond_meson vc4} \
+  %{bcond_meson etnaviv} \
+  %{bcond_meson cairo_tests} \
+  %{bcond_meson man_pages} \
+  %{bcond_meson valgrind} \
+  %{bcond_meson_bool freedreno_kgsl} \
+  %{bcond_meson_bool install_test_programs} \
+  %{bcond_meson_bool udev} \
   %{nil}
 %meson_build
 
@@ -223,10 +229,6 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 %{_libdir}/libdrm.so.2
 %{_libdir}/libdrm.so.2.4.0
 %dir %{_datadir}/libdrm
-%if %{with libkms}
-%{_libdir}/libkms.so.1
-%{_libdir}/libkms.so.1.0.0
-%endif
 
 %if %{with omap}
 %files omap
@@ -263,11 +265,6 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 %{_includedir}/libdrm/*_drm.h
 %{_libdir}/libdrm.so
 %{_libdir}/pkgconfig/libdrm.pc
-%if %{with libkms}
-%{_includedir}/libkms/
-%{_libdir}/libkms.so
-%{_libdir}/pkgconfig/libkms.pc
-%endif
 %if %{with intel}
 %{_includedir}/libdrm/intel_*.h
 %{_libdir}/libdrm_intel.so
@@ -330,13 +327,13 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 
 %if %{with install_test_programs}
 %files -n drm-utils
+%if %{with amdgpu}
+%{_bindir}/amdgpu_stress
+%endif
 %{_bindir}/drmdevice
+%if %{with etnaviv}
 %exclude %{_bindir}/etnaviv_*
 %exclude %{_bindir}/exynos_*
-%{_bindir}/kms-steal-crtc
-%{_bindir}/kms-universal-planes
-%if %{with libkms}
-%{_bindir}/kmstest
 %endif
 %{_bindir}/modeprint
 %{_bindir}/modetest
