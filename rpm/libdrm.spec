@@ -55,7 +55,7 @@ end}
 
 Name:       libdrm
 Summary:    Direct Rendering Manager runtime library
-Version:    2.4.115
+Version:    2.4.122
 Release:    1
 License:    MIT
 URL:        https://dri.freedesktop.org/wiki/
@@ -225,34 +225,28 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 %endif
 
 %files
-%defattr(-,root,root,-)
 %{_libdir}/libdrm.so.2
 %{_libdir}/libdrm.so.2.4.0
 %dir %{_datadir}/libdrm
 
 %if %{with omap}
 %files omap
-%defattr(-,root,root,-)
 %{_libdir}/libdrm_omap.so.1
 %{_libdir}/libdrm_omap.so.1.0.0
 %endif
 
 %files radeon
-%defattr(-,root,root,-)
 %{_libdir}/libdrm_radeon.so.*
 
 %files nouveau
-%defattr(-,root,root,-)
 %{_libdir}/libdrm_nouveau.so.*
 
 %files amdgpu
-%defattr(-,root,root,-)
 %{_libdir}/libdrm_amdgpu.so.*
 %{_datadir}/libdrm/amdgpu.ids
 
 %ifarch %{ix86} x86_64
 %files intel
-%defattr(-,root,root,-)
 %{_libdir}/libdrm_intel.so.*
 %endif
 
