@@ -1,3 +1,4 @@
+%define keepstatic 1
 %define bcond_meson() %{lua: do
   local option = rpm.expand("%{1}")
   local with = rpm.expand("%{?with_" .. option .. "}")
@@ -139,6 +140,22 @@ Requires(postun): /sbin/ldconfig
 %{summary}.
 %endif
 
+%package devel-static
+Summary:    Direct Rendering Manager development package
+#Requires:   %{name} = %{version}-%{release}
+#%if %{with omap}
+#Requires:   %{name}-omap = %{version}-%{release}
+#%endif
+#Requires:   %{name}-radeon = %{version}-%{release}
+#Requires:   %{name}-nouveau = %{version}-%{release}
+#%ifarch %{ix86} x86_64
+#Requires:   %{name}-intel = %{version}-%{release}
+#%endif
+Requires:   kernel-headers
+
+%description devel-static
+%{summary}.
+
 
 %package devel
 Summary:    Direct Rendering Manager development package
@@ -171,6 +188,7 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 
 %build
 %meson \
+  -Ddefault_library=static \
   %{bcond_meson intel} \
   %{bcond_meson radeon} \
   %{bcond_meson amdgpu} \
@@ -225,29 +243,29 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 %endif
 
 %files
-%{_libdir}/libdrm.so.2
-%{_libdir}/libdrm.so.2.4.0
+#%{_libdir}/libdrm.so.2
+#%{_libdir}/libdrm.so.2.4.0
 %dir %{_datadir}/libdrm
 
 %if %{with omap}
 %files omap
-%{_libdir}/libdrm_omap.so.1
-%{_libdir}/libdrm_omap.so.1.0.0
+#%{_libdir}/libdrm_omap.so.1
+#%{_libdir}/libdrm_omap.so.1.0.0
 %endif
 
 %files radeon
-%{_libdir}/libdrm_radeon.so.*
+#%{_libdir}/libdrm_radeon.so.*
 
 %files nouveau
-%{_libdir}/libdrm_nouveau.so.*
+#%{_libdir}/libdrm_nouveau.so.*
 
 %files amdgpu
-%{_libdir}/libdrm_amdgpu.so.*
+#%{_libdir}/libdrm_amdgpu.so.*
 %{_datadir}/libdrm/amdgpu.ids
 
 %ifarch %{ix86} x86_64
 %files intel
-%{_libdir}/libdrm_intel.so.*
+#%{_libdir}/libdrm_intel.so.*
 %endif
 
 %files devel
@@ -257,49 +275,49 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 %{_includedir}/libdrm/drm_mode.h
 %{_includedir}/libdrm/drm_sarea.h
 %{_includedir}/libdrm/*_drm.h
-%{_libdir}/libdrm.so
+#%{_libdir}/libdrm.so
 %{_libdir}/pkgconfig/libdrm.pc
 %if %{with intel}
 %{_includedir}/libdrm/intel_*.h
-%{_libdir}/libdrm_intel.so
+#%{_libdir}/libdrm_intel.so
 %{_libdir}/pkgconfig/libdrm_intel.pc
 %endif
 %if %{with radeon}
 %{_includedir}/libdrm/radeon_*.h
 %{_includedir}/libdrm/r600_pci_ids.h
-%{_libdir}/libdrm_radeon.so
+#%{_libdir}/libdrm_radeon.so
 %{_libdir}/pkgconfig/libdrm_radeon.pc
 %endif
 %if %{with amdgpu}
 %{_includedir}/libdrm/amdgpu.h
-%{_libdir}/libdrm_amdgpu.so
+#%{_libdir}/libdrm_amdgpu.so
 %{_libdir}/pkgconfig/libdrm_amdgpu.pc
 %endif
 %if %{with nouveau}
 %{_includedir}/libdrm/nouveau/
-%{_libdir}/libdrm_nouveau.so
+#%{_libdir}/libdrm_nouveau.so
 %{_libdir}/pkgconfig/libdrm_nouveau.pc
 %endif
 %if %{with omap}
 %{_includedir}/libdrm/omap_*.h
 %{_includedir}/omap/
-%{_libdir}/libdrm_omap.so
+#%{_libdir}/libdrm_omap.so
 %{_libdir}/pkgconfig/libdrm_omap.pc
 %endif
 %if %{with exynos}
 %{_includedir}/libdrm/exynos_*.h
 %{_includedir}/exynos/
-%{_libdir}/libdrm_exynos.so
+#%{_libdir}/libdrm_exynos.so
 %{_libdir}/pkgconfig/libdrm_exynos.pc
 %endif
 %if %{with freedreno}
 %{_includedir}/freedreno/
-%{_libdir}/libdrm_freedreno.so
+#%{_libdir}/libdrm_freedreno.so
 %{_libdir}/pkgconfig/libdrm_freedreno.pc
 %endif
 %if %{with tegra}
 %{_includedir}/libdrm/tegra.h
-%{_libdir}/libdrm_tegra.so
+#%{_libdir}/libdrm_tegra.so
 %{_libdir}/pkgconfig/libdrm_tegra.pc
 %endif
 %if %{with vc4}
@@ -308,7 +326,7 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 %endif
 %if %{with etnaviv}
 %{_includedir}/libdrm/etnaviv_*.h
-%{_libdir}/libdrm_etnaviv.so
+#%{_libdir}/libdrm_etnaviv.so
 %{_libdir}/pkgconfig/libdrm_etnaviv.pc
 %endif
 %{_includedir}/libsync.h
@@ -334,3 +352,66 @@ Utility programs for the kernel DRM interface.  Will void your warranty.
 %{_bindir}/proptest
 %{_bindir}/vbltest
 %endif
+
+
+%files devel-static
+%dir %{_includedir}/libdrm
+#%{_includedir}/libdrm/drm.h
+#%{_includedir}/libdrm/drm_fourcc.h
+#%{_includedir}/libdrm/drm_mode.h
+#%{_includedir}/libdrm/drm_sarea.h
+#%{_includedir}/libdrm/*_drm.h
+%{_libdir}/lib*.a
+#%{_libdir}/pkgconfig/libdrm.pc
+#%if %{with intel}
+#%{_includedir}/libdrm/intel_*.h
+#%{_libdir}/pkgconfig/libdrm_intel.pc
+#%endif
+#%if %{with radeon}
+#%{_includedir}/libdrm/radeon_*.h
+#%{_includedir}/libdrm/r600_pci_ids.h
+#%{_libdir}/pkgconfig/libdrm_radeon.pc
+#%endif
+#%if %{with amdgpu}
+#%{_includedir}/libdrm/amdgpu.h
+#%{_libdir}/pkgconfig/libdrm_amdgpu.pc
+#%endif
+#%if %{with nouveau}
+#%{_includedir}/libdrm/nouveau/
+#%{_libdir}/pkgconfig/libdrm_nouveau.pc
+#%endif
+#%if %{with omap}
+#%{_includedir}/libdrm/omap_*.h
+#%{_includedir}/omap/
+#%{_libdir}/pkgconfig/libdrm_omap.pc
+#%endif
+#%if %{with exynos}
+#%{_includedir}/libdrm/exynos_*.h
+#%{_includedir}/exynos/
+#%{_libdir}/pkgconfig/libdrm_exynos.pc
+#%endif
+#%if %{with freedreno}
+#%{_includedir}/freedreno/
+#%{_libdir}/pkgconfig/libdrm_freedreno.pc
+#%endif
+#%if %{with tegra}
+#%{_includedir}/libdrm/tegra.h
+#%{_libdir}/pkgconfig/libdrm_tegra.pc
+#%endif
+#%if %{with vc4}
+#%{_includedir}/libdrm/vc4_*.h
+#%{_libdir}/pkgconfig/libdrm_vc4.pc
+#%endif
+#%if %{with etnaviv}
+#%{_includedir}/libdrm/etnaviv_*.h
+#%{_libdir}/pkgconfig/libdrm_etnaviv.pc
+#%endif
+#%{_includedir}/libsync.h
+#%{_includedir}/xf86drm.h
+#%{_includedir}/xf86drmMode.h
+#%if %{with man_pages}
+#%{_mandir}/man3/drm*.3*
+#%{_mandir}/man7/drm*.7*
+#%endif
+
+
